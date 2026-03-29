@@ -64,6 +64,7 @@ public:
 
 private slots:
     void onAddRuleBtnClicked();
+    void onCloneRuleBtnClicked();
     void onRemoveRuleBtnClicked();
     void onExportBtnClicked();
     void onImportBtnClicked();
@@ -80,6 +81,7 @@ private slots:
     void updateEpisodeFilterValidity();
     void handleRuleDefinitionChanged();
     void handleRuleAdded(const QString &ruleName);
+    void handleRuleCloned(const QString &cloneName, const QString &sourceName);
     void handleRuleRenamed(const QString &ruleName, const QString &oldRuleName);
     void handleRuleChanged(const QString &ruleName);
     void handleRuleAboutToBeRemoved(const QString &ruleName);

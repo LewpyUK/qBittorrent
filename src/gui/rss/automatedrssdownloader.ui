@@ -60,6 +60,22 @@
           </widget>
          </item>
          <item>
+          <widget class="QToolButton" name="cloneRuleBtn">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>Clone selected rule to a new rule.</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>20</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QToolButton" name="renameRuleBtn">
            <property name="enabled">
             <bool>false</bool>

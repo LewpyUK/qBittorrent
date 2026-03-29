@@ -212,6 +212,28 @@ void AutoDownloader::setRule(const AutoDownloadRule &rule)
     }
 }
 
+bool AutoDownloader::cloneRule(const QString &sourceName, const QString &cloneName)
+{
+    if (!hasRule(sourceName) || hasRule(cloneName))
+        return false;
+
+    //    AutoDownloadRule clonedRule;
+    const auto index = m_rulesByName.value(sourceName);
+    // Copy the existing rule and change its name to the new one
+    AutoDownloadRule clonedRule = m_rules[index];
+    clonedRule.setName(cloneName);
+    // Disable the cloned rule by default to prevent accidental downloads
+    clonedRule.setEnabled(false);
+    setRule_impl(clonedRule);
+    sortRules();
+    m_dirty = true;
+    store();
+    emit ruleCloned(cloneName, sourceName);
+    emit ruleChanged(cloneName);
+    resetProcessingQueue();
+    return true;
+}
+
 bool AutoDownloader::renameRule(const QString &ruleName, const QString &newRuleName)
 {
     if (!hasRule(ruleName) || hasRule(newRuleName))
