@@ -94,6 +94,16 @@ AutomatedRssDownloader::AutomatedRssDownloader(QWidget *parent)
     m_ui->removeRuleBtn->setIcon(UIThemeManager::instance()->getIcon(u"edit-clear"_s, u"list-remove"_s));
     m_ui->addRuleBtn->setIcon(UIThemeManager::instance()->getIcon(u"list-add"_s));
 
+    // Tooltips
+//    m_ui->cloneRuleBtn->setToolTip(u"<html><body><p>" + tr("Clone selected rule to a new rule") + u"</p><p>"
+//        + u"● " + tr("The clone of the download rule will be set as disabled") + u"</p><p>"
+//        + u"● " + tr("The hidden downloaded episodes history will be cloned") + u"</p><p>"
+//        + u"● " + tr("Clear the downloaded episodes manually, if not required") + u"</p></body></html>");
+    m_ui->cloneRuleBtn->setToolTip(tr("Clone selected rule to a new rule")
+        + u"\n● " + tr("The clone of the download rule will be set as disabled")
+        + u"\n● " + tr("The hidden downloaded episodes history will be cloned")
+        + u"\n● " + tr("Clear the downloaded episodes manually, if not required"));
+
     // Ui Settings
     m_ui->ruleList->setSortingEnabled(true);
     m_ui->ruleList->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -412,9 +422,9 @@ void AutomatedRssDownloader::onCloneRuleBtnClicked()
     forever
     {
         QString cloneName = AutoExpandableDialog::getText(
-            this, tr("Rule cloning"), tr("Please type new clone download rule name."),
+            this, tr("Rule cloning"), tr("Please type the name for the clone of the download rule"),
             QLineEdit::Normal, item->text());
-        cloneName = cloneName.trimmed();
+            cloneName = cloneName.trimmed();
         if (cloneName.isEmpty()) return;
 
         if (RSS::AutoDownloader::instance()->hasRule(cloneName))
@@ -557,7 +567,7 @@ void AutomatedRssDownloader::displayRulesListMenu()
             menu->addAction(UIThemeManager::instance()->getIcon(u"edit-rename"_s), tr("Rename rule...")
                 , this, &AutomatedRssDownloader::renameSelectedRule);
             menu->addSeparator();
-            menu->addAction(UIThemeManager::instance()->getIcon(u"edit-copy"_s), tr("Clone rule...")
+            QAction* cloneAction = menu->addAction(UIThemeManager::instance()->getIcon(u"edit-copy"_s), tr("Clone rule...")
                 , this, &AutomatedRssDownloader::onCloneRuleBtnClicked);
         }
         else
@@ -874,9 +884,7 @@ void AutomatedRssDownloader::handleRuleAdded(const QString &ruleName)
 
 void AutomatedRssDownloader::handleRuleCloned(const QString &cloneName, const QString &sourceName)
 {
-//    auto *item = m_itemsByRuleName.take(sourceName);
     createRuleItem(RSS::AutoDownloadRule(cloneName));
-//    item->setCheckState(Qt::Unchecked);
 }
 
 void AutomatedRssDownloader::handleRuleRenamed(const QString &ruleName, const QString &oldRuleName)

@@ -60,12 +60,6 @@
                             return;
 
                         window.parent.qBittorrent.RssDownloader.updateRulesList();
-                        const rows = window.parent.qBittorrent.RssDownloader.rssDownloaderRulesTable.getRowValues();
-                        const row = rows.find(r => r.full_data.name === cloneName);
-                        if (row) {
-                            window.parent.qBittorrent.RssDownloader.rssDownloaderRulesTable.updateRowData({ rowId: row.rowId, checked: false });
-                            window.parent.qBittorrent.RssDownloader.modifyRuleState(row.full_data.name, "enabled", false);
-                        }
                         window.parent.qBittorrent.Client.closeFrameWindow(window);
                     });
             });
@@ -75,8 +69,13 @@
 
 <body>
     <div style="padding: 10px 10px 0px 10px;">
-        <label for="clone">QBT_TR(Please type new clone download rule name)QBT_TR[CONTEXT=AutomatedRssDownloader]</label>
+        <label for="clone">QBT_TR(Please type the name for the clone of the download rule)QBT_TR[CONTEXT=AutomatedRssDownloader]</label>
         <input type="text" id="clone" style="width: 320px;">
+        <div id="cloneInformation">
+            <br>● QBT_TR(The clone of the download rule will be set as disabled)QBT_TR[CONTEXT=AutomatedRssDownloader]
+            <br>● QBT_TR(The hidden downloaded episodes history will be cloned)QBT_TR[CONTEXT=AutomatedRssDownloader]
+            <br>● QBT_TR(Clear the downloaded episodes manually, if not required)QBT_TR[CONTEXT=AutomatedRssDownloader]
+        </div>
         <div style="text-align: center; padding-top: 10px;">
             <input type="button" value="QBT_TR(Save)QBT_TR[CONTEXT=HttpServer]" id="cloneButton">
         </div>

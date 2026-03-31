@@ -63,10 +63,14 @@
           <widget class="QToolButton" name="cloneRuleBtn">
            <property name="enabled">
             <bool>false</bool>
-           </property>
+           </property><!--
            <property name="toolTip">
-            <string>Clone selected rule to a new rule.</string>
-           </property>
+            <string>Clone selected rule to a new rule
+
+● The clone of the download rule will be set as disabled
+● The hidden downloaded episodes history will be cloned
+● Clear the downloaded episodes manually, if not required</string>
+           </property> -->
            <property name="iconSize">
             <size>
              <width>24</width>
